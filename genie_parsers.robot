@@ -27,11 +27,11 @@ connect to UUT device
 # Execute 'show bgp process vrf all'
 # Parse the output of the show command using the parser loaded above
 execute and parse 'show bgp process vrf all' on UUT
-    ${output} = parse "genie.libs.parser.show_bgp.ShowBgpProcessVrfAll" on device "uut"
+    parse "genie.libs.parser.show_bgp.ShowBgpProcessVrfAll" on device "uut"
 
 
 # Load parser "ShowModule"
 # Execute 'show module'
 # Parse the output of the show command using the parser loaded above
 execute and parse 'show platform' on UUT
-    ${output} = parse "genie.libs.parser.show_platform.ShowModule" on device "uut"
+    parse "genie.libs.parser.show_platform.ShowModule" on device "uut"

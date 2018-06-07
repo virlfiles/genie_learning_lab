@@ -52,4 +52,4 @@ execute Verify_BgpAllNexthopDatabase after trigger
 
 # Perform Checks: Verify number of BGP neighbors after trigger is the same as that before the trigger
 verify number of bgp neighbors
-    verify count "6" "bgp neighbors" on device "uut"
+    verify count "1" "bgp neighbors" on device "uut"
