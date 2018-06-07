@@ -23,16 +23,21 @@ connect to UUT device
     connect to devices "uut"
 
 
-# Execute 'show bgp all neighbors' before executing the trigger
-verify Bgp neighbors before trigger
-    run verification "Verify_BgpAllNeighbors" on device "uut"
+# Run Genie Verification: Verify_BgpAllNexthopDatabase before Trigger
+execute Verify_BgpAllNexthopDatabase before trigger
+    run verification "Verify_BgpAllNexthopDatabase" on device "uut"
 
 
-# Execute TriggerClearBgpNeighbor
-execute TriggerClearBgpNeighbor
-    run trigger "TriggerClearBgpNeighbor" on device "uut" using alias "cli"
+# Execute Genie Trigger: TriggerShutNoShutBgp
+execute TriggerShutNoShutBgp
+    run trigger "TriggerShutNoShutBgp" on device "uut"
 
 
-# Execute 'show bgp all neighbors' after executing the trigger
-verify Bgp neighbors before trigger
-    run verification "Verify_BgpAllNeighbors" on device "uut"
+# Run Genie Verification: Verify_BgpAllNexthopDatabase after Trigger
+execute Verify_BgpAllNexthopDatabase after trigger
+    run verification "Verify_BgpAllNexthopDatabase" on device "uut"
+
+
+# Perform Checks: Verify number of BGP neighbors after trigger is the same as that before the trigger
+verify number of bgp neighbors
+    verify count "1" "bgp neighbors" on device "uut"

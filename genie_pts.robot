@@ -17,15 +17,18 @@ ${testbed}     /genie_tests/default_testbed.yaml
 # Creating testcases using available Genie, PyATS & Unicon keywords
 
 
-# Connect to UUT device using CLI
-connect to UUT device
+# Connect to UUT and helper device using CLI
+connect to UUT and helper device
     use genie testbed "${testbed}"
     connect to devices "uut"
+    connect to devices "helper"
 
 
-# Run PTS on all devices and save it to local variable pre_trigger_snapshot
-profile bgp & ospf on All as pre trigger snapshot and compare to golden PTS
-    Profile the system for "bgp;ospf" on devices "nx-osv-1;csr1000v-1" at "pre_trigger_snapshot"
+# Run PTS for features BGP and OSPF on all devices
+# Save it to local variable "pre_trigger_snapshot"
+#
+profile bgp & ospf on all devices as pre-trigger-snapshot
+    Profile the system for "bgp;ospf" on devices "uut;helper" as "pre_trigger_snapshot"
 
 
 # Execute some action that could impact device operational state
@@ -33,7 +36,10 @@ execute TriggerShutNoShutBgp
     run trigger "TriggerShutNoShutBgp" on device "uut"
 
 
-# Run PTS on all devices, save it to local variable post_trigger_snapshot and compare it with pre_trigger_snapshot
-profile bgp & ospf on All as post trigger snapshot and compare to pre trigger snapshot
-    Profile the system for "bgp;ospf" on devices "nx-osv-1;csr1000v-1" at "post_trigger_snapshot"
-    Compare profile "post_trigger_snapshot" with "pre_trigger_snapshot" on devices "nx-osv-1;csr1000v-1"
+# Run PTS for features BGP and OSPF on all devices
+# Save it to local variable "post_trigger_snapshot"
+# Compare it with pre_trigger_snapshot
+#
+profile bgp & ospf on all devices as post-trigger-snapshot and compare to pre-trigger-snapshot
+    Profile the system for "bgp;ospf" on devices "uut;helper" as "post_trigger_snapshot"
+    Compare profile "post_trigger_snapshot" with "pre_trigger_snapshot" on devices "uut;helper"

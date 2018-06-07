@@ -48,8 +48,3 @@ execute TriggerShutNoShutBgp
 #
 execute Verify_BgpAllNexthopDatabase after trigger
     run verification "Verify_BgpAllNexthopDatabase" on device "uut"
-
-
-# Perform Checks: Verify number of BGP neighbors after trigger is the same as that before the trigger
-verify number of bgp neighbors
-    verify count "1" "bgp neighbors" on device "uut"
