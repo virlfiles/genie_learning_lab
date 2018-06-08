@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.95" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.95/virl.xsd">
     <extensions>
+      <entry key="management_network" type="String">flat</entry>
       <entry key="management_lxc" type="Boolean">false</entry>
     </extensions>
     <node name="csr1000v-1" type="SIMPLE" subtype="CSR1000v" location="270,188">
@@ -22,82 +23,21 @@ hostname csr1000v-1
 boot-start-marker
 boot-end-marker
 !
-!
+crypto key generate rsa modulus 1024
 !
 no aaa new-model
 !
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
+username cisco privilege 15 secret cisco
 !
 subscriber templating
-! 
-! 
-! 
-! 
-!
-!
 !
 multilink bundle-name authenticated
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
 !
 license udi pid CSR1000V sn 9MYOKU4TABJ
 diagnostic bootup level minimal
 spanning-tree extend system-id
 !
-!
-!
-!
 redundancy
-!
-!
-!
-!
-!
-!
-! 
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-! 
-! 
-!
 !
 interface Loopback0
  ip address 10.1.1.1 255.255.255.255
@@ -152,7 +92,7 @@ ip http client source-interface GigabitEthernet1
 ip ssh server algorithm encryption aes128-ctr aes192-ctr aes256-ctr
 ip ssh client algorithm encryption aes128-ctr aes192-ctr aes256-ctr
 !
-!
+ip route 0.0.0.0 0.0.0.0 {{ gateway }}
 !
 !
 !
@@ -165,14 +105,8 @@ control-plane
 !
 line con 0
  stopbits 1
-line vty 0
- login
-line vty 1
- login
- length 0
-line vty 2 4
- login
-!
+line vty 0 15
+ login local
 !
 !
 !
@@ -197,7 +131,7 @@ license grace-period
 
 hostname nx-osv-1
 vdc nx-osv-1 id 1
-  limit-resource module-type m1 m1xl m2xl f2e 
+  limit-resource module-type m1 m1xl m2xl f2e
   allocate interface Ethernet2/1-48
   allocate interface Ethernet3/1-48
   allocate interface Ethernet4/1-48
@@ -212,7 +146,9 @@ vdc nx-osv-1 id 1
 feature ospf
 feature bgp
 
-username admin password 5 $5$Otc7T0NC$K.ulnSZnSyXLrTGNBdtLgZJXEa8EeNx.BrdZ98XyK2C  role network-admin
+username admin password 5 $1$KuOSBsvW$Cy0TSD..gEBGBPjzpDgf51 role network-admin
+username cisco password 5 $1$Nk7ZkwH0$fyiRmMMfIheqE3BqvcL0C1 role network-operator
+username cisco role network-admin
 no password strength-check
 ip domain-lookup
 vlan dot1Q tag native
@@ -231,9 +167,12 @@ snmp-server enable traps link
 vlan 1
 
 vrf context management
+  ip route 0.0.0.0 0.0.0.0 {{ gateway }}
 
 interface mgmt0
-  vrf member management
+  description OOB Management
+  ! Configured on launch
+  no ip address
 
 interface Ethernet2/1
   no switchport
@@ -249,716 +188,6 @@ interface Ethernet2/2
   ip router ospf 1 area 0.0.0.0
   no shutdown
 
-interface Ethernet2/3
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/4
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/5
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/6
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/7
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/8
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/9
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/10
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/11
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/12
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/13
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/14
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/15
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/16
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/17
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/18
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/19
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/20
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/21
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/22
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/23
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/24
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/25
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/26
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/27
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/28
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/29
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/30
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/31
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/32
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/33
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/34
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/35
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/36
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/37
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/38
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/39
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/40
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/41
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/42
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/43
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/44
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/45
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/46
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/47
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet2/48
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/1
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/2
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/3
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/4
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/5
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/6
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/7
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/8
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/9
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/10
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/11
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/12
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/13
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/14
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/15
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/16
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/17
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/18
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/19
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/20
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/21
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/22
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/23
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/24
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/25
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/26
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/27
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/28
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/29
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/30
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/31
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/32
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/33
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/34
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/35
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/36
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/37
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/38
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/39
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/40
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/41
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/42
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/43
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/44
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/45
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/46
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/47
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet3/48
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/1
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/2
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/3
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/4
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/5
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/6
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/7
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/8
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/9
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/10
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/11
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/12
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/13
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/14
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/15
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/16
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/17
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/18
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/19
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/20
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/21
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/22
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/23
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/24
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/25
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/26
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/27
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/28
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/29
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/30
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/31
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/32
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/33
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/34
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/35
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/36
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/37
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/38
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/39
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/40
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/41
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/42
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/43
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/44
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/45
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/46
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/47
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
-interface Ethernet4/48
-  shutdown
-  no switchport
-  mac-address 0000.0000.002f
-
 interface loopback0
   ip address 10.2.2.2/32
   ip router ospf 1 area 0.0.0.0
@@ -968,7 +197,7 @@ interface loopback1
 line console
 line vty
 boot kickstart bootflash:/titanium-d1-kickstart.7.3.0.D1.1.bin
-boot system bootflash:/titanium-d1.7.3.0.D1.1.bin 
+boot system bootflash:/titanium-d1.7.3.0.D1.1.bin
 router ospf 1
   router-id 10.2.2.2
 router bgp 65000
