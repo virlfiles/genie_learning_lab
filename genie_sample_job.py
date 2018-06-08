@@ -17,6 +17,6 @@ from genie.harness.main import gRun
 def main(runtime):
 
     gRun(mapping_datafile='/genie_tests/mapping_datafile.yaml',
-         trigger_uids=And('TriggerClearBgpNeighbor'),
-         verification_uids=And('Verify_BgpAllNeighbors'),
+         trigger_uids=And('TriggerDisableEnableBgp\.'),
+         verification_uids=And('Verify_BgpAllNexthopDatabase\.'),
          )
