@@ -13,7 +13,7 @@ Library        unicon.robot.UniconRobot
 ${testbed}     /genie_tests/default_testbed.yaml
 
 
-*** TestCases ***
+*** Test Cases ***
 # Creating testcases using available Genie, PyATS & Unicon keywords
 
 
