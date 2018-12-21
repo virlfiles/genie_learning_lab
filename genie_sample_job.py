@@ -19,4 +19,3 @@ def main(runtime):
     gRun(mapping_datafile='/genie_tests/mapping_datafile.yaml',
          trigger_uids=And('TriggerDisableEnableBgp\.'),
          verification_uids=And('Verify_BgpAllNexthopDatabase\.'),
-         )

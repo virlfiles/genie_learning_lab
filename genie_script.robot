@@ -23,7 +23,7 @@ connect to UUT device
     connect to devices "uut"
 
 
-# Run Genie Verification: Verify_BgpAllNexthopDatabase before Trigger
+# Run Genie Verification: Verify_BgpAllNexthopDatabase and save snapshot
 execute Verify_BgpAllNexthopDatabase and save snapshot
     run verification "Verify_BgpAllNexthopDatabase" on device "uut"
 
@@ -33,7 +33,7 @@ execute TriggerShutNoShutBgp
     run trigger "TriggerShutNoShutBgp" on device "uut"
 
 
-# Run Genie Verification: Verify_BgpAllNexthopDatabase after Trigger
+# Run Genie Verification: Verify_BgpAllNexthopDatabase and compare to snapshot
 execute Verify_BgpAllNexthopDatabase and compare to snapshot
     run verification "Verify_BgpAllNexthopDatabase" on device "uut"
 
