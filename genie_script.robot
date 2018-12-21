@@ -1,5 +1,5 @@
-# Genie Devnet Lab-4: Execute Genie script with Robot
-# ===================================================
+# Genie Devnet Lab-3c: Execute Genie script with Robot
+# ====================================================
 
 
 *** Settings ***
@@ -23,16 +23,27 @@ connect to UUT device
     connect to devices "uut"
 
 
-# Execute 'show bgp all neighbors' before executing the trigger
-verify Bgp neighbors before trigger
-    run verification "Verify_BgpAllNeighbors" on device "uut"
+# Run Genie Verification: Verify_BgpAllNexthopDatabase before Trigger
+execute Verify_BgpAllNexthopDatabase and save snapshot
+    run verification "Verify_BgpAllNexthopDatabase" on device "uut"
 
 
-# Execute TriggerClearBgpNeighbor
-execute TriggerClearBgpNeighbor
-    run trigger "TriggerClearBgpNeighbor" on device "uut" using alias "cli"
+# Execute Genie Trigger: TriggerShutNoShutBgp
+execute TriggerShutNoShutBgp
+    run trigger "TriggerShutNoShutBgp" on device "uut"
 
 
-# Execute 'show bgp all neighbors' after executing the trigger
-verify Bgp neighbors before trigger
-    run verification "Verify_BgpAllNeighbors" on device "uut"
+# Run Genie Verification: Verify_BgpAllNexthopDatabase after Trigger
+execute Verify_BgpAllNexthopDatabase and compare to snapshot
+    run verification "Verify_BgpAllNexthopDatabase" on device "uut"
+
+
+# For Genie DevNet Labs the number of BGP neighbors is 1
+# Perform check to verify that the number of BGP neighbors is 1
+verify number of bgp neighbors is 1
+    verify count "1" "bgp neighbors" on device "uut"
+
+
+# Perform negative check to verify that the number of BGP neighbors is 5
+verify number of bgp neighbors is 5
+    verify count "5" "bgp neighbors" on device "uut"

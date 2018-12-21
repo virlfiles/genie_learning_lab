@@ -23,8 +23,8 @@ connect to UUT device
     connect to devices "uut"
 
 
-# Genie Trigger: TriggerShutNoShutBgp
-#    1. Connects to UUT device and learns BGP configuration
+# Trigger-1: TriggerShutNoShutBgp
+#    1. Connects to UUT device, checks if BGP configuration is present and learns BGP configuration
 #    2. Configures 'shutdown' under BGP instance to shutdown BGP
 #    3. Verifies BGP instance and BGP neighbors are in 'shutdown' state
 #    4. Configures 'no shutdown' under BGP instance
@@ -34,8 +34,8 @@ execute TriggerShutNoShutBgp
     run trigger "TriggerShutNoShutBgp" on device "uut"
 
 
-# Genie Trigger: TriggerUnconfigConfigBgp
-#    1. Connects to UUT device, learns BGP configuration and creates a checkpoint
+# Trigger-2: TriggerUnconfigConfigBgp
+#    1. Connects to UUT device, checks if BGP configuration is present, learns BGP configuration and creates a checkpoint
 #    2. Configures 'no router bgp <instance>' to remove BGP configuration
 #    3. Verifies BGP instance and BGP neighbors are removed from configuration
 #    4. Restores configuration back to checkpoint stored in Step #1
