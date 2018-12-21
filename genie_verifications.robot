@@ -13,7 +13,7 @@ Library        unicon.robot.UniconRobot
 ${testbed}     /genie_tests/default_testbed.yaml
 
 
-*** TestCases ***
+*** Test Cases ***
 # Creating testcases using available Genie, PyATS & Unicon keywords
 
 
@@ -23,28 +23,33 @@ connect to UUT device
     connect to devices "uut"
 
 
-# Run Genie Verification: Verify_BgpAllNexthopDatabase before Trigger
-#    1. Connect to the device and execute 'show bgp all nexthop database'
-#	 2. Create Python datastructure to save parsed output of show command (pre trigger snapshot)
+# Verification-1: Verify_BgpAllNexthopDatabase
+#    1. Connect to the device and execute 'show bgp all nexthop-database'
+#    2. Create Python datastructure after parsing show command output
 #
-execute Verify_BgpAllNexthopDatabase before trigger
+execute Verify_BgpAllNexthopDatabase
     run verification "Verify_BgpAllNexthopDatabase" on device "uut"
 
 
-# Execute Genie Trigger: TriggerShutNoShutBgp
-#    1. Connects to UUT device and learns BGP configuration
-#    2. Configures 'shutdown' under BGP instance to shutdown BGP
-#    3. Verifies BGP instance and BGP neighbors are in 'shutdown' state
-#    4. Configures 'no shutdown' under BGP instance
-#    5. Verifies BGP instance and BGP neighbors are back up
+# Verification-2: Verify_Interface
+#    1. Connect to the device and execute 'show interface'
+#    2. Create Python datastructure after parsing show command output
 #
-execute TriggerShutNoShutBgp
-    run trigger "TriggerShutNoShutBgp" on device "uut"
+execute Verify_Interface
+    run verification "Verify_Interface" on device "uut"
 
 
-# Run Genie Verification: Verify_BgpAllNexthopDatabase after Trigger
-#    1. Connect to the device and execute 'show bgp all nexthop database'
-#	 2. Create Python datastructure to save parsed output of show command (post trigger snapshot)
+# Verification-3: Verify_BgpProcessVrfAll
+#    1. Connect to the device and execute 'show bgp process vrf all'
+#    2. Create Python datastructure after parsing show command output
 #
-execute Verify_BgpAllNexthopDatabase after trigger
-    run verification "Verify_BgpAllNexthopDatabase" on device "uut"
+execute Verify_BgpProcessVrfAll
+    run verification "Verify_BgpProcessVrfAll" on device "uut"
+
+
+# Verification-4: Verify_IpOspfInterface_vrf_all
+#    1. Connect to the device and execute 'show ip ospf interface vrf all'
+#    2. Create Python datastructure after parsing show command output
+#
+execute Verify_IpOspfInterface_vrf_all
+    run verification "Verify_IpOspfInterface_vrf_all" on device "uut"

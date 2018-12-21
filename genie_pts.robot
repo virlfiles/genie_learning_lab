@@ -1,4 +1,4 @@
-# Genie Devnet Lab-5: Running Genie PTS
+# Genie Devnet Lab-4: Running Genie PTS
 # =====================================
 
 
@@ -13,7 +13,7 @@ Library        unicon.robot.UniconRobot
 ${testbed}     /genie_tests/default_testbed.yaml
 
 
-*** TestCases ***
+*** Test Cases ***
 # Creating testcases using available Genie, PyATS & Unicon keywords
 
 

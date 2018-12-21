@@ -1,5 +1,5 @@
-# Genie Devnet Lab-4: Execute Genie script with Robot
-# ===================================================
+# Genie Devnet Lab-3c: Execute Genie script with Robot
+# ====================================================
 
 
 *** Settings ***
@@ -13,7 +13,7 @@ Library        unicon.robot.UniconRobot
 ${testbed}     /genie_tests/default_testbed.yaml
 
 
-*** TestCases ***
+*** Test Cases ***
 # Creating testcases using available Genie, PyATS & Unicon keywords
 
 
@@ -23,8 +23,8 @@ connect to UUT device
     connect to devices "uut"
 
 
-# Run Genie Verification: Verify_BgpAllNexthopDatabase before Trigger
-execute Verify_BgpAllNexthopDatabase before trigger
+# Run Genie Verification: Verify_BgpAllNexthopDatabase and save snapshot
+execute Verify_BgpAllNexthopDatabase and save snapshot
     run verification "Verify_BgpAllNexthopDatabase" on device "uut"
 
 
@@ -33,11 +33,17 @@ execute TriggerShutNoShutBgp
     run trigger "TriggerShutNoShutBgp" on device "uut"
 
 
-# Run Genie Verification: Verify_BgpAllNexthopDatabase after Trigger
-execute Verify_BgpAllNexthopDatabase after trigger
+# Run Genie Verification: Verify_BgpAllNexthopDatabase and compare to snapshot
+execute Verify_BgpAllNexthopDatabase and compare to snapshot
     run verification "Verify_BgpAllNexthopDatabase" on device "uut"
 
 
-# Perform Checks: Verify number of BGP neighbors after trigger is the same as that before the trigger
-verify number of bgp neighbors
+# For Genie DevNet Labs the number of BGP neighbors is 1
+# Perform check to verify that the number of BGP neighbors is 1
+verify number of bgp neighbors is 1
     verify count "1" "bgp neighbors" on device "uut"
+
+
+# Perform negative check to verify that the number of BGP neighbors is 5
+verify number of bgp neighbors is 5
+    verify count "5" "bgp neighbors" on device "uut"
