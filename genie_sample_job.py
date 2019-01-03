@@ -6,7 +6,7 @@ Sample Genie Job File
 __author__ = 'Cisco Systems Inc.'
 __copyright__ = 'Copyright (c) 2018, Cisco Systems Inc.'
 __contact__ = ['asg-genie-support@cisco.com']
-__date__= 'December 2018'
+__date__= 'January 2019'
 
 
 # ATS & Genie
@@ -16,6 +16,7 @@ from genie.harness.main import gRun
 
 def main(runtime):
 
-    gRun(mapping_datafile='/genie_tests/mapping_datafile.yaml',
+    gRun(mapping_datafile='mapping_datafile.yaml',
          trigger_uids=And('TriggerDisableEnableBgp\.'),
          verification_uids=And('Verify_BgpAllNexthopDatabase\.'),
+	)
