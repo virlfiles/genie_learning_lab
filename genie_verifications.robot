@@ -10,7 +10,7 @@ Library        unicon.robot.UniconRobot
 
 *** Variables ***
 # Defining variables that can be used elsewhere in the test data.
-${testbed}     /genie_tests/default_testbed.yaml
+${testbed}     default_testbed.yaml
 
 
 *** Test Cases ***
