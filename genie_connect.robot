@@ -14,7 +14,7 @@ ${testbed}     default_testbed.yaml
 
 
 *** Test Cases ***
-# Creating testcases using available Genie, PyATS & Unicon keywords
+# Creating testcases using available Genie, pyATS & Unicon keywords
 
 
 # Connect to a device using CLI as the communication protocol

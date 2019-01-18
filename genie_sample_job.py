@@ -4,7 +4,7 @@ Sample Genie Job File
 
 # Author
 __author__ = 'Cisco Systems Inc.'
-__copyright__ = 'Copyright (c) 2018, Cisco Systems Inc.'
+__copyright__ = 'Copyright (c) 2019, Cisco Systems Inc.'
 __contact__ = ['asg-genie-support@cisco.com']
 __date__= 'January 2019'
 

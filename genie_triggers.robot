@@ -14,7 +14,7 @@ ${testbed}     default_testbed.yaml
 
 
 *** Test Cases ***
-# Creating testcases using available Genie, PyATS & Unicon keywords
+# Creating testcases using available Genie, pyATS & Unicon keywords
 
 
 # Connect to UUT device using CLI
