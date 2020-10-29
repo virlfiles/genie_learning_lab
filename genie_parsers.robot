@@ -27,7 +27,7 @@ connect to UUT device
 # Execute 'show bgp process vrf all'
 # Parse the output of the show command using the parser loaded above
 execute and parse 'show bgp process vrf all' on UUT
-    parse "genie.libs.parser.show_bgp.ShowBgpProcessVrfAll" on device "uut"
+    parse "show bgp process vrf all" on device "uut"
 
 
 # Load parser "ShowModule"
