@@ -4,4 +4,4 @@ devices:
     context: cli
     label: uut
     mapping:
-      cli: console
+      cli: a
