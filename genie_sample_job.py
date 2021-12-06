@@ -17,6 +17,6 @@ from genie.harness.main import gRun
 def main(runtime):
 
     gRun(mapping_datafile='mapping_datafile.yaml',
-         trigger_uids=And('TriggerDisableEnableBgp\.'),
-         verification_uids=And('Verify_BgpAllNexthopDatabase\.'),
+         trigger_uids='TriggerDisableEnableBgp',
+         verification_uids='Verify_BgpAllNexthopDatabase',
 	)
